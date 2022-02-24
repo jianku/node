@@ -155,18 +155,15 @@ const hostObject = new (internalBinding('js_stream').JSStream)();
 }
 
 {
+  // Test that an old serialized value can still be deserialized.
   const buf = Buffer.from('ff0d6f2203666f6f5e007b01', 'hex');
 
   const des = new v8.DefaultDeserializer(buf);
   des.readHeader();
-
-  const ser = new v8.DefaultSerializer();
-  ser.writeHeader();
-
-  ser.writeValue(des.readValue());
-
-  assert.deepStrictEqual(buf, ser.releaseBuffer());
   assert.strictEqual(des.getWireFormatVersion(), 0x0d);
+
+  const value = des.readValue();
+  assert.strictEqual(value, value.foo);
 }
 
 {
