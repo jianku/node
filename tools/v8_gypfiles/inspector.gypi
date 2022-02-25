@@ -120,7 +120,6 @@
       '<(inspector_protocol_path)/crdtp/protocol_core.h',
       '<(inspector_protocol_path)/crdtp/serializable.cc',
       '<(inspector_protocol_path)/crdtp/serializable.h',
-      '<(inspector_protocol_path)/crdtp/serializer_traits.h',
       '<(inspector_protocol_path)/crdtp/span.cc',
       '<(inspector_protocol_path)/crdtp/span.h',
       '<(inspector_protocol_path)/crdtp/status.cc',

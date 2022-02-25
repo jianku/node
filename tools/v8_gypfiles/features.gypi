@@ -176,9 +176,6 @@
     # Controls the threshold for on-heap/off-heap Typed Arrays.
     'v8_typed_array_max_size_in_heap%': 64,
 
-    # Enable minor mark compact.
-    'v8_enable_minor_mc%': 1,
-
     # Enable lazy source positions by default.
     'v8_enable_lazy_source_positions%': 1,
 
@@ -214,6 +211,18 @@
     # Sets -DV8_COMPRESS_ZONES.
     'v8_enable_zone_compression%': 0,
 
+    # Enable the experimental V8 sandbox.
+    # Sets -DV8_SANDBOX.
+    'v8_enable_sandbox%': 0,
+
+    # Enable external pointer sandboxing. Requires v8_enable_sandbox.
+    # Sets -DV8_SANDBOXED_EXTERNAL_POINRTERS.
+    'v8_enable_sandboxed_external_pointers%': 0,
+
+    # Enable sandboxed pointers. Requires v8_enable_sandbox.
+    # Sets -DV8_SANDBOXED_POINTERS.
+    'v8_enable_sandboxed_pointers%': 0,
+
     # Experimental feature for collecting per-class zone memory stats.
     # Requires use_rtti = true
     'v8_enable_precise_zone_stats%': 0,
@@ -231,12 +240,17 @@
     # When it's disabled, the --turbo-allocation-folding runtime flag will be ignored.
     'v8_enable_allocation_folding%': 1,
 
+    # Enable runtime verification of heap snapshots produced for devtools.
+    'v8_enable_heap_snapshot_verify%': 0,
+
     # Enable global allocation site tracking.
     'v8_allocation_site_tracking%': 1,
 
     'v8_scriptormodule_legacy_lifetime%': 1,
 
-    'v8_include_receiver_in_argc%': 1,
+    # Change code emission and runtime features to be CET shadow-stack compliant
+    # (incomplete and experimental).
+    'v8_enable_cet_shadow_stack%': 0,
 
     # Variables from v8.gni
 
@@ -285,9 +299,6 @@
       ['v8_enable_hugepage==1', {
         'defines': ['ENABLE_HUGEPAGE',],
       }],
-      ['v8_enable_minor_mc==1', {
-        'defines': ['ENABLE_MINOR_MC',],
-      }],
       ['v8_enable_pointer_compression==1', {
         'defines': [
           'V8_COMPRESS_POINTERS',
@@ -299,6 +310,15 @@
       }],
       ['v8_enable_zone_compression==1', {
         'defines': ['V8_COMPRESS_ZONES',],
+      }],
+      ['v8_enable_sandbox==1', {
+        'defines': ['V8_SANDBOX',],
+      }],
+      ['v8_enable_sandboxed_pointers==1', {
+        'defines': ['V8_SANDBOXED_POINTERS',],
+      }],
+      ['v8_enable_sandboxed_external_pointers==1', {
+        'defines': ['V8_SANDBOXED_EXTERNAL_POINTERS',],
       }],
       ['v8_enable_object_print==1', {
         'defines': ['OBJECT_PRINT',],
@@ -345,6 +365,9 @@
       # ['v8_enable_handle_zapping==1', {
       #  'defines': ['ENABLE_HANDLE_ZAPPING',],
       # }],
+      ['v8_enable_heap_snapshot_verify==1', {
+        'defines': ['V8_ENABLE_HEAP_SNAPSHOT_VERIFY',],
+      }],
       ['v8_enable_snapshot_native_code_counters==1', {
         'defines': ['V8_SNAPSHOT_NATIVE_CODE_COUNTERS',],
       }],
@@ -387,6 +410,9 @@
       ['v8_control_flow_integrity==1', {
         'defines': ['V8_ENABLE_CONTROL_FLOW_INTEGRITY',],
       }],
+      ['v8_enable_cet_shadow_stack==1', {
+        'defines': ['V8_ENABLE_CET_SHADOW_STACK',],
+      }],
       ['v8_enable_precise_zone_stats==1', {
         'defines': ['V8_ENABLE_PRECISE_ZONE_STATS',],
       }],
@@ -413,9 +439,6 @@
       }],
       ['v8_advanced_bigint_algorithms==1', {
         'defines': ['V8_ADVANCED_BIGINT_ALGORITHMS',],
-      }],
-      ['v8_include_receiver_in_argc==1', {
-        'defines': ['V8_INCLUDE_RECEIVER_IN_ARGC',],
       }],
     ],  # conditions
     'defines': [
