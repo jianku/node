@@ -539,6 +539,11 @@
           '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "v8_header_set.\\"v8_internal_headers\\".*?sources = ")',
         ],
         'conditions': [
+          ['v8_enable_maglev==1', {
+            'sources': [
+              '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "v8_header_set.\\"v8_internal_headers\\".*?v8_enable_maglev.*?sources \\+= ")',
+            ],
+          }],
           ['v8_enable_webassembly==1', {
             'sources': [
               '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "v8_header_set.\\"v8_internal_headers\\".*?v8_enable_webassembly.*?sources \\+= ")',
@@ -782,6 +787,11 @@
         }, {
           'sources': [
             '<(V8_ROOT)/src/heap/third-party/heap-api-stub.cc',
+          ],
+        }],
+        ['v8_enable_maglev==1', {
+          'sources': [
+            '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "\\"v8_base_without_compiler.*?v8_enable_maglev.*?sources \\+= ")',
           ],
         }],
         ['v8_enable_webassembly==1', {
@@ -1136,6 +1146,7 @@
         ['OS == "mac" or OS == "ios"', {
           'sources': [
             '<(V8_ROOT)/src/base/debug/stack_trace_posix.cc',
+            '<(V8_ROOT)/src/base/platform/platform-darwin.cc',
             '<(V8_ROOT)/src/base/platform/platform-macos.cc',
           ]
         }],

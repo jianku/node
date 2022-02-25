@@ -157,9 +157,9 @@
     # Enables various testing features.
     'v8_enable_test_features%': 0,
 
-    # Enables raw heap snapshots containing internals. Used for debugging memory
-    # on platform and embedder level.
-    'v8_enable_raw_heap_snapshots%': 0,
+    # Enable the Maglev compiler.
+    # Sets -dV8_ENABLE_MAGLEV
+    'v8_enable_maglev%': 0,
 
     # With post mortem support enabled, metadata is embedded into libv8 that
     # describes various parameters of the VM for use by debuggers. See
@@ -227,6 +227,10 @@
     # Requires use_rtti = true
     'v8_enable_precise_zone_stats%': 0,
 
+    # Experimental feature that uses SwissNameDictionary instead of NameDictionary
+    # as the backing store for all dictionary mode objects.
+    'v8_enable_swiss_name_dictionary%': 0,
+
     # Experimental feature for tracking constness of properties in non-global
     # dictionaries. Enabling this also always keeps prototypes in dict mode,
     # meaning that they are not switched to fast mode.
@@ -283,9 +287,6 @@
       }],
       ['v8_promise_internal_field_count!=0', {
         'defines': ['V8_PROMISE_INTERNAL_FIELD_COUNT=<(v8_promise_internal_field_count)'],
-      }],
-      ['v8_enable_raw_heap_snapshots==1', {
-        'defines': ['V8_ENABLE_RAW_HEAP_SNAPSHOTS',],
       }],
       ['v8_enable_future==1', {
         'defines': ['V8_ENABLE_FUTURE',],
@@ -415,6 +416,12 @@
       }],
       ['v8_enable_precise_zone_stats==1', {
         'defines': ['V8_ENABLE_PRECISE_ZONE_STATS',],
+      }],
+      ['v8_enable_maglev==1', {
+        'defines': ['V8_ENABLE_MAGLEV',],
+      }],
+      ['v8_enable_swiss_name_dictionary==1', {
+        'defines': ['V8_ENABLE_SWISS_NAME_DICTIONARY',],
       }],
       ['v8_enable_system_instrumentation==1', {
         'defines': ['V8_ENABLE_SYSTEM_INSTRUMENTATION',],
