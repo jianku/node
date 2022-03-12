@@ -477,7 +477,7 @@
       'toolsets': ['host', 'target'],
       'dependencies': [
         'v8_config_headers',
-        'cppgc_headers',
+        'v8_heap_base_headers',
         'v8_version',
       ],
       'direct_dependent_settings': {
@@ -529,7 +529,7 @@
         'v8_headers',
         'v8_maybe_icu',
         'v8_shared_internal_headers',
-        'cppgc_headers',
+        'v8_heap_base_headers',
         'generate_bytecode_builtins_list',
         'run_torque',
         'v8_libbase',
@@ -755,8 +755,8 @@
       'dependencies': [
         'torque_generated_definitions',
         'v8_bigint',
-        'v8_cppgc_shared',
         'v8_headers',
+        'v8_heap_base',
         'v8_libbase',
         'v8_shared_internal_headers',
         'v8_version',
@@ -1544,15 +1544,15 @@
       ],
     },  # run_gen-regexp-special-case
     {
-      'target_name': 'cppgc_headers',
+      'target_name': 'v8_heap_base_headers',
       'type': 'none',
       'toolsets': ['host', 'target'],
       'direct_dependent_settings': {
         'sources': [
-          '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "v8_header_set.\\"cppgc_headers.*?sources = ")',
+          '<!@pymod_do_main(GN-scraper "<(V8_ROOT)/BUILD.gn"  "v8_source_set.\\"v8_heap_base_headers.*?sources = ")',
         ],
       },
-    },  # cppgc_headers
+    },  # v8_heap_base_headers
     {
       'target_name': 'cppgc_base',
       'type': 'none',
@@ -1581,15 +1581,14 @@
       },
     },  # v8_bigint
     {
-      'target_name': 'v8_cppgc_shared',
+      'target_name': 'v8_heap_base',
       'type': 'none',
       'toolsets': ['host', 'target'],
       'direct_dependent_settings': {
         'sources': [
+          '<(V8_ROOT)/src/heap/base/active-system-pages.cc',
           '<(V8_ROOT)/src/heap/base/stack.cc',
-          '<(V8_ROOT)/src/heap/base/stack.h',
           '<(V8_ROOT)/src/heap/base/worklist.cc',
-          '<(V8_ROOT)/src/heap/base/worklist.h',
         ],
         'conditions': [
           ['enable_lto=="true"', {
@@ -1670,7 +1669,7 @@
           }],
         ],
       },
-    },  # v8_cppgc_shared
+    },  # v8_heap_base
 
     ###############################################################################
     # Public targets
